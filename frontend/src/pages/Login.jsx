@@ -39,7 +39,7 @@ export function Login() {
     };
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#fdfbf7' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--color-bg)' }}>
             <Header />
 
             <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
@@ -60,11 +60,11 @@ export function Login() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 style={{
-                                    width: '100%', padding: '0.8rem 1rem', borderRadius: '12px', border: '1px solid #eee',
-                                    background: '#fafafa', outline: 'none', transition: 'border 0.2s', fontSize: '1rem'
+                                    width: '100%', padding: '0.8rem 1rem', borderRadius: '12px', border: '1px solid var(--color-border)',
+                                    background: 'var(--color-bg)', color: 'var(--color-text-main)', outline: 'none', transition: 'border 0.2s', fontSize: '1rem'
                                 }}
                                 onFocus={(e) => e.target.style.borderColor = 'var(--color-primary)'}
-                                onBlur={(e) => e.target.style.borderColor = '#eee'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--color-border)'}
                             />
                         </div>
 
@@ -76,11 +76,11 @@ export function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 style={{
-                                    width: '100%', padding: '0.8rem 1rem', borderRadius: '12px', border: '1px solid #eee',
-                                    background: '#fafafa', outline: 'none', transition: 'border 0.2s', fontSize: '1rem'
+                                    width: '100%', padding: '0.8rem 1rem', borderRadius: '12px', border: '1px solid var(--color-border)',
+                                    background: 'var(--color-bg)', color: 'var(--color-text-main)', outline: 'none', transition: 'border 0.2s', fontSize: '1rem'
                                 }}
                                 onFocus={(e) => e.target.style.borderColor = 'var(--color-primary)'}
-                                onBlur={(e) => e.target.style.borderColor = '#eee'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--color-border)'}
                             />
                         </div>
 

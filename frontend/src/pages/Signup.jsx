@@ -73,8 +73,8 @@ export function Signup() {
                             onChange={(e) => setName(e.target.value)}
                             style={{
                                 width: '100%', padding: '1rem',
-                                background: '#fcfcfc', border: '1px solid #e5e5e5', borderRadius: '12px',
-                                fontSize: '1rem', outline: 'none'
+                                background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: '12px',
+                                fontSize: '1rem', outline: 'none', color: 'var(--color-text-main)'
                             }}
                         />
                     </div>
@@ -86,8 +86,8 @@ export function Signup() {
                             onChange={(e) => setEmail(e.target.value)}
                             style={{
                                 width: '100%', padding: '1rem',
-                                background: '#fcfcfc', border: '1px solid #e5e5e5', borderRadius: '12px',
-                                fontSize: '1rem', outline: 'none'
+                                background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: '12px',
+                                fontSize: '1rem', outline: 'none', color: 'var(--color-text-main)'
                             }}
                         />
                     </div>
@@ -99,8 +99,8 @@ export function Signup() {
                             onChange={(e) => setPassword(e.target.value)}
                             style={{
                                 width: '100%', padding: '1rem',
-                                background: '#fcfcfc', border: '1px solid #e5e5e5', borderRadius: '12px',
-                                fontSize: '1rem', outline: 'none'
+                                background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: '12px',
+                                fontSize: '1rem', outline: 'none', color: 'var(--color-text-main)'
                             }}
                         />
                     </div>
