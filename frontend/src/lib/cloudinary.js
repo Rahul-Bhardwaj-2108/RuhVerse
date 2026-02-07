@@ -18,21 +18,35 @@ export async function uploadToCloudinary(file) {
     // Optional: add folder or tags here if needed
     // formData.append('folder', 'ruhverse_uploads');
 
-    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
-        method: 'POST',
-        body: formData,
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error?.message || "Cloudinary upload failed");
+    try {
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
+            method: 'POST',
+            body: formData,
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || "Cloudinary upload failed");
+        }
+
+        const data = await response.json();
+        return {
+            url: data.secure_url,
+            type: data.resource_type, // 'image', 'video', 'raw'
+            public_id: data.public_id
+        };
+    } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+            throw new Error("Upload timed out. Please check your internet connection.");
+        }
+        throw error;
     }
 
-    const data = await response.json();
 
-    return {
-        url: data.secure_url,
-        type: data.resource_type, // 'image', 'video', 'raw'
-        public_id: data.public_id
-    };
 }
