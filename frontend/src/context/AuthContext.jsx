@@ -16,6 +16,11 @@ export function AuthProvider({ children }) {
     const [likes, setLikes] = useState([]);
 
     useEffect(() => {
+        if (!supabase) {
+            setLoading(false);
+            throw new Error("Application Configuration Error: Supabase keys are missing. Please check your environment variables.");
+        }
+
         // Check active session
         supabase.auth.getSession().then(async ({ data: { session } }) => {
             if (session?.user) {
