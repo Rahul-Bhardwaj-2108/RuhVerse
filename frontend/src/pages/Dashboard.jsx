@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { compressImage } from '../lib/imageUtils';
 import { useAuth } from '../context/AuthContext';
 import { useShayaris } from '../hooks/useShayaris';
 import { useToast } from '../context/ToastContext';
@@ -71,16 +72,26 @@ export function Dashboard() {
         setAvatarFile(null);
     };
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            setAvatarFile(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setAvatarImage(reader.result);
-                setShowAvatarMenu(false);
-            };
-            reader.readAsDataURL(file);
+            try {
+                // Compress image before setting state
+                const compressedFile = await compressImage(file, 800, 800, 0.8);
+                setAvatarFile(compressedFile);
+
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setAvatarImage(reader.result);
+                    setShowAvatarMenu(false);
+                };
+                reader.readAsDataURL(compressedFile);
+            } catch (error) {
+                console.error("Compression failed:", error);
+                // Fallback to original file
+                setAvatarFile(file);
+                addToast("Image compression failed, using original.", "error");
+            }
         }
     };
 
@@ -521,19 +532,24 @@ export function Dashboard() {
                                         </div>
                                     </div>
 
-                                    <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+                                    <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap-reverse' }}>
                                         <button type="button" onClick={() => setActiveTab('collection')} style={{
                                             padding: '0.75rem 1.5rem', borderRadius: '50px',
                                             background: 'transparent', color: 'var(--color-text-muted)',
-                                            fontSize: '0.9rem', cursor: 'pointer', fontWeight: '500'
+                                            border: '1px solid var(--color-border)',
+                                            fontSize: '0.9rem', cursor: 'pointer', fontWeight: '500',
+                                            flex: '1', textAlign: 'center'
                                         }}>
                                             Cancel
                                         </button>
                                         <button type="submit" className="btn-primary" disabled={isSaving} style={{
-                                            padding: '0.75rem 2.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                                            opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'not-allowed' : 'pointer'
+                                            padding: '0.75rem 2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                                            opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'not-allowed' : 'pointer',
+                                            flex: '2', minWidth: '150px',
+                                            background: isSaving ? 'var(--color-text-muted)' : 'var(--color-primary)',
+                                            color: '#fff'
                                         }}>
-                                            {isSaving ? <span className="animate-spin" style={{ display: 'inline-block', width: '18px', height: '18px', border: '2px solid rgba(0,0,0,0.2)', borderTopColor: '#000', borderRadius: '50%' }}></span> : <Save size={18} />}
+                                            {isSaving ? <span className="animate-spin" style={{ display: 'inline-block', width: '18px', height: '18px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%' }}></span> : <Save size={18} />}
                                             {isSaving ? 'Saving...' : 'Save Changes'}
                                         </button>
                                     </div>
