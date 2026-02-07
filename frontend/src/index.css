@@ -1,0 +1,355 @@
+:root {
+  --color-bg: #fdfbf7;
+  /* Warm off-white */
+  --color-surface: #ffffff;
+  --color-surface-glass: rgba(255, 255, 255, 0.6);
+  --color-primary: #d4af37;
+  /* Gold */
+  --color-primary-glow: rgba(212, 175, 55, 0.2);
+  --color-text-main: #4a3b32;
+  /* Deep warm brown */
+  --color-text-muted: #8c7b70;
+  /* Muted earth tone */
+  --color-border: rgba(212, 175, 55, 0.2);
+
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+.dark-theme {
+  --color-bg: #0f172a;
+  /* Slate 900 */
+  --color-surface: #1e293b;
+  /* Slate 800 */
+  --color-surface-glass: rgba(30, 41, 59, 0.7);
+  --color-primary: #fbbf24;
+  /* Amber 400 - Brighter Gold */
+  --color-primary-glow: rgba(251, 191, 36, 0.15);
+  --color-text-main: #f1f5f9;
+  /* Slate 100 */
+  --color-text-muted: #94a3b8;
+  /* Slate 400 */
+  --color-border: rgba(251, 191, 36, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  line-height: 1.6;
+  background-image:
+    url('/assets/ethereal_paper_background.png'),
+    linear-gradient(to bottom, transparent, #fff5eb);
+  background-size: cover;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #0f172a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  /* Pill shape */
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px var(--color-primary-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px var(--color-primary-glow);
+  background-color: #fcd34d;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+}
+
+.btn-icon:hover {
+  color: var(--color-text-main);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Animations */
+@keyframes mesh {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.mesh-bg {
+  background: linear-gradient(-45deg, #fdfbf7, #fde8d8, #fffbf2, #fdfbf7);
+  background-size: 400% 400%;
+  animation: mesh 15s ease infinite;
+}
+
+/* --- New Hover Effects --- */
+
+/* 1. Card Lift & Glow */
+.shayari-card {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(74, 59, 50, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  cursor: default;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.shayari-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px var(--color-primary-glow);
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+  /* Solid surface on hover for better readiness */
+}
+
+/* 2. Magnetic Buttons */
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+  background-color: #fcd34d;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Link Underline Animation */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* 4. Input Focus Glow */
+input:focus,
+textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* 5. General Scale Utility */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* --- Responsive Design --- */
+
+/* Mobile Navigation */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100%;
+  background: var(--color-surface);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+
+  /* Layout */
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* Typography Scale */
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.75rem !important;
+  }
+
+  h3 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Cards */
+  .shayari-card {
+    padding: 1.5rem;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  /* Auth Pages */
+  .auth-card {
+    padding: 2rem !important;
+  }
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 3rem;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
